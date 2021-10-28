@@ -1,0 +1,161 @@
+﻿<!--
+        Author: W3layouts
+        Author URL: http://w3layouts.com
+    -->
+<!DOCTYPE html>
+<html lang="zxx">
+
+<!-- Head -->
+<head>
+
+    <title>Meetup Signin Form Flat Responsive Widget Template : W3layouts</title>
+
+    <!-- Meta-Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+        .alert {
+            padding: 20px;
+            background-color: #f44336;
+            color: white;
+            opacity: 1;
+            transition: opacity 0.6s;
+            margin-bottom: 15px;
+        }
+
+            .alert.success {
+                background-color: #04AA6D;
+            }
+
+            .alert.info {
+                background-color: #2196F3;
+            }
+
+            .alert.warning {
+                background-color: #ff9800;
+            }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .closebtn:hover {
+                color: black;
+            }
+    </style>
+
+    <!-- style CSS -->
+    <link rel="stylesheet" href="~/css/style.css" type="text/css" media="all">
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css" media="all">
+
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Mukta:300,400,500" rel="stylesheet">
+
+</head>
+<!-- //Head -->
+<!-- Body -->
+<body>
+
+    @if (ViewBag.Message == "false")
+    {
+        <h2>Alert!</h2>
+        <div class="alert">
+            <span class="closebtn">&times;</span>
+            <strong>Alert!</strong> This username is already taken.
+        </div>
+    }
+
+    <section class="main">
+        <div class="bottom-grid">
+            <div class="logo">
+                <h1> <a href="index.html"> Meetup Signin form</a></h1>
+            </div>
+        </div>
+        <div class="content-w3ls">
+            <div class="text-center icon">
+                <span class="fa fa-meetup"></span>
+            </div>
+
+            <div class="content-bottom">
+                <form action="/Register/Index" method="post">
+                    <div class="field-group">
+                        <span class="fa fa-user" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="name" id="name" type="text" value="" placeholder="Name" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-address-book" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="surname" id="surname" type="text" value="" placeholder="Surname" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-address-book" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="gsm" id="gsm" type="text" value="" placeholder="GSM" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-address-book" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="address" id="address" type="text" value="" placeholder="Address" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-address-book" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="username" id="username" type="text" value="" placeholder="Username" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="password" id="password" type="Password" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="re_password" id="re_password" type="Password" placeholder="Reply Password">
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <span class="fa fa-lock" aria-hidden="true"></span>
+                        <div class="wthree-field">
+                            <input name="status" id="status" type="Status" placeholder="admin, observer, user">
+                        </div>
+                    </div>
+                    <div class="wthree-field">
+                        <button type="submit" class="btn">Sign in</button>
+                    </div>
+
+                    <ul class="list-login-bottom">
+                        <li class="">
+                            <a href="/Login/Index/" class="text-right">Need Help?</a>
+                        </li>
+                        <li class="clearfix"></li>
+                    </ul>
+
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+<!-- //Body -->
+
+</html>
