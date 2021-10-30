@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace LoginPage.Models
 {
@@ -11,6 +9,7 @@ namespace LoginPage.Models
         public string surname { get; set; }
         public string gsm { get; set; }
         public string adress { get; set; }
+        [Key]
         public string username { get; set; }
         public string password { get; set; }
         public string status { get; set; }

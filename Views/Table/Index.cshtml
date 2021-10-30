@@ -1,14 +1,38 @@
 ﻿@using LoginPage.Models
-@model Login
+@model IEnumerable<Login>
 
-<h1>Sa as</h1>
+<a asp-action="Table" asp-route-id="null">Create</a>
 
-<h2>@Model.name</h2>
-<h2>@Model.surname</h2>
-<h2>@Model.status</h2>
-<h2>@Model.username</h2>
-<h2>@Model.password</h2>
-<h2>@Model.gsm</h2>
-@if (@Model.status == "admin") {
-}
+<table>
+    <thead>
 
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Age</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <th>@item.name</th>
+            <th>@item.surname</th>
+            <th>@item.status</th>
+            <th>@item.username</th>
+            <th>@item.password</th>
+            <th>@item.adress</th>
+            <th>@item.gsm</th>
+            <td>
+            <td>
+                @if ( == "admin")
+                {
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-name="@item._name">Delete</a>
+                }
+                <a class="btn btn-secondary" asp-action="Register" asp-route-name="@item._name">Update</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>

@@ -26,12 +26,9 @@ namespace LoginPage
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            /*
-            services.AddMvc();
-            services.AddEntityFrameworkNpgsql().AddDbContext<TableContext>(opt =>
-              opt.UseNpgsql(Configuration.GetConnectionString("Databaseconnection")));
-            */
-          }
+            services.AddDbContext<TableContext>(options =>
+                               options.UseNpgsql(Configuration.GetConnectionString("ConnectionContext")));
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
