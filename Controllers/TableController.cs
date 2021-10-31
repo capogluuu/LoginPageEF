@@ -7,17 +7,55 @@ using System.Threading.Tasks;
 
 namespace LoginPage.Controllers
 {
-    public class TableController : Controller
+    public class TableController  : Controller
     {
-        public IActionResult Index()
+        private readonly TableContext _context;
+        public TableController(TableContext context)
         {
-            Console.WriteLine("Buraya Geldi");
-            return View();
+            _context = context;
         }
 
-        /*public IActionResult Index(Login login)
+
+
+        public IActionResult Index ()
         {
-            return View();
-        }*/
+            var list = _context.Logins.ToList();
+            return View(list);
+        }
+        public async Task<IActionResult> Create(Login login)
+        {
+            //var list = _context.Registers.ToList();
+            //update
+            // if (temp.GetType() != null)
+            if (login.name != null)
+            {
+                await _context.AddAsync(login);
+            }
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Delete(string name)
+        {
+            var login = await _context.Logins.FindAsync(name);
+            _context.Remove(login);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Table(string name)
+        {
+            Login login;
+            if (name != null)
+            {
+                login = _context.Logins.Find(name);
+
+            }
+            else
+            {
+                login = new Login();
+            }
+            return View(login);
+        }
     }
 }

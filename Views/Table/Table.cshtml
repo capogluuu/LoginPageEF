@@ -12,17 +12,28 @@
 
 <form method="POST" asp-action="Create" autocomplete="off">
     <div class="form-group">
-        <input type="text" asp-for="_name">
-        <input type="text" asp-for="_name" class="form-control">
+        <input type="text" asp-for="name" class="form-control">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="_surname" class="form-control">
+        <input type="text" asp-for="surname" class="form-control">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="_age" class="form-control">
+        <input type="text" asp-for="gsm" class="form-control">
     </div>
     <div class="form-group">
-        @if (Model._name == null)
+        <input type="text" asp-for="adress" class="form-control">
+    </div>
+    <div class="form-group">
+        <input type="text" asp-for="username" class="form-control">
+    </div>
+    <div class="form-group">
+        <input type="text" asp-for="password" class="form-control">
+    </div>
+    <div class="form-group">
+        <input type="text" asp-for="status" class="form-control">
+    </div>
+    <div class="form-group">
+        @if (Model.name == null)
         {
             <button type="submit" class="btn btn-primary">Create</button>
         }

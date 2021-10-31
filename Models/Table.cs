@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace LoginPage.Models
@@ -35,5 +36,6 @@ namespace LoginPage.Models
         public string username { get { return Username; } set { Username = value; } }
         public string password { get { return Password; } set { Password = value; } }
         public string status { get { return Status; } set { Status = value; } }
+
     }
 }

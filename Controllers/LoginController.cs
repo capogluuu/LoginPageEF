@@ -26,21 +26,22 @@ namespace LoginPage.Controllers
         public IActionResult Index(string username, string password)
         {
             // to do -> create an index file to send model type data to website
-
+            // to do login page düzenlenecek
             char[] charsToTrim = { ' ' };
 
 
-            var cs = "Host=localhost;Port=5432;User Id=postgres;Password=Akif3mre.;Database=Personnal_database;";
+            var cs = "Host=localhost;Port=5432;User Id=postgres;Password=test;Database=EfLoginPage;";
             using var con = new NpgsqlConnection(cs);
             con.Open();
-            string query = "select COUNT(*) from public.registration" + $" WHERE username='{username}' and password='{password}'";
+            string query = "select COUNT(*) from public.\"Logins\" " + $" WHERE username='{username}' and password='{password}'";
+
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
             cmd.CommandText = query;
 
             if ((Int64)cmd.ExecuteScalar() > 0)
             {
-                query = $"SELECT * FROM public.registration Where Username='{username}'";
+                query = $"SELECT * FROM public.\"Logins\"  Where username='{username}'";
 
                 cmd.Connection = con;
                 cmd.CommandText = query;

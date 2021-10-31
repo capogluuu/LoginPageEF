@@ -1,11 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LoginPage.Models;
+using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace LoginPage.Controllers
 {
     public class RegisterController : Controller
     {
+        private readonly TableContext _context;
+        public RegisterController(TableContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View();
@@ -23,26 +31,14 @@ namespace LoginPage.Controllers
                 // to do -> check dublicate situation
                 // to do -> give an alert for duplicate cases
 
-                var cs = "Host=localhost;Port=5432;User Id=postgres;Password=Akif3mre.;Database=Personnal_database;";
+                var cs = "Host=localhost;Port=5432;User Id=postgres;Password=test;Database=EfLoginPage;";
                 using var con = new NpgsqlConnection(cs);
                 con.Open();
 
-                string query = "select COUNT(*) from public.registration" + $" WHERE username='{username}'";
+                string query = "select COUNT(*) from public.\"Logins\"" + $" WHERE username='{username}'";
 
                 using var cmd = new NpgsqlCommand();
                 cmd.Connection = con;
-
-                cmd.CommandText = @"CREATE TABLE IF NOT EXISTS registration (
-                                    Name varchar(45) NOT NULL,
-                                    Surname varchar(45) NOT NULL,
-                                    GSM varchar(45) NOT NULL,
-                                    Address varchar(45) NOT NULL,
-                                    Username varchar(45) NOT NULL,
-                                    Password varchar(450) NOT NULL,
-                                    Status varchar(45) NOT NULL,
-                                    PRIMARY KEY (Username))";
-                cmd.ExecuteNonQuery();
-
                 cmd.CommandText = query;
 
                 ViewBag.Message = "true";
@@ -52,10 +48,16 @@ namespace LoginPage.Controllers
                     return View("~/Views/Register/Index.cshtml");
                 }
 
-                cmd.CommandText = $"INSERT INTO registration(name, surname, gsm, address, username, password, status)" +
-                    $" VALUES('{name}','{surname}','{gsm}','{address}','{username}','{password}','{status}')";
-                cmd.ExecuteNonQuery();
-                return View("~/Views/Table/Index.cshtml");
+                cmd.CommandText = $"INSERT INTO public.\"Logins\" (username, name, surname, gsm, adress,  password, status)" +
+                    $" VALUES('{username}','{name}','{surname}','{gsm}','{address}','{password}','{status}')";
+                //cmd.ExecuteNonQuery();
+
+
+                //var list = _context.Logins.ToList();
+                //return Redirect("~/Views/Table/Index.cshtml",list);
+
+                return View("~/Views/Table/Router.cshtml");
+
             }
 
             else
