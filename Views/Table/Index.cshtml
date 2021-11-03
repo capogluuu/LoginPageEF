@@ -13,7 +13,7 @@
             <th scope="col">Username</th>
             <th scope="col">Password</th>
             <th scope="col">Address</th>
-            <th scope="col">Gsm</th>
+            <th scope="col">Gsm</th>he 
         </tr>
     </thead>
     <tbody>
@@ -29,11 +29,7 @@
             <th>@item.gsm</th>
             <td>
             <td>
-
-                @if (item.status == "admin")
-                {
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-username="@item.username">Delete</a>
-                }
+                <a class="btn btn-danger" asp-action="Delete" asp-route-username="@item.username">Delete</a>            
                 <a class="btn btn-secondary" asp-action="Table" asp-route-username="@item.username">Update</a>
             </td>
         </tr>

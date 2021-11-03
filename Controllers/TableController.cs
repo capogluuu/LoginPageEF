@@ -54,7 +54,7 @@ namespace LoginPage.Controllers
             }
             return View(table);
         }
-        public async Task<IActionResult> Update(Table table)
+        public IActionResult Update(Table table)
         {
             using (var newTable = new TableContext())
             {
