@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LoginPage.Models;
-using Npgsql;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace LoginPage.Controllers
 {
