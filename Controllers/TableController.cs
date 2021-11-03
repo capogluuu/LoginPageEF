@@ -7,55 +7,70 @@ using System.Threading.Tasks;
 
 namespace LoginPage.Controllers
 {
-    public class TableController  : Controller
+    public class TableController : Controller
     {
         private readonly TableContext _context;
         public TableController(TableContext context)
         {
             _context = context;
         }
-
-
-
-        public IActionResult Index ()
+        public IActionResult Index()
         {
-            var list = _context.Logins.ToList();
+            var list = _context.Tables.ToList();
             return View(list);
         }
-        public async Task<IActionResult> Create(Login login)
+        public async Task<IActionResult> Create(Table table)
         {
-            //var list = _context.Registers.ToList();
-            //update
-            // if (temp.GetType() != null)
-            if (login.name != null)
+            if (table.name != null)
             {
-                await _context.AddAsync(login);
+                await _context.AddAsync(table);
             }
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(string name)
+        public IActionResult Delete(string username)
         {
-            var login = await _context.Logins.FindAsync(name);
-            _context.Remove(login);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        public IActionResult Table(string name)
-        {
-            Login login;
-            if (name != null)
+            using (var table = new TableContext())
             {
-                login = _context.Logins.Find(name);
-
+                var userList = table.Tables
+                    .Where(x => x.username == username)
+                    .First();
+                table.Tables.Remove(userList);
+                table.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Table(string username)
+        {
+            Table table;
+            if(username == null)
+            {
+                table = new Table();
             }
             else
             {
-                login = new Login();
+                table = _context.Tables.Find(username);
             }
-            return View(login);
+            return View(table);
+        }
+        public async Task<IActionResult> Update(Table table)
+        {
+            using (var newTable = new TableContext())
+            {
+                var userList = newTable.Tables
+                    .Where(x => x.username == table.username)
+                    .First();
+                
+                userList.gsm = table.gsm;
+                userList.name = table.name;
+                userList.password = table.password;
+                userList.surname = table.surname;
+                          
+                newTable.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
+
         }
     }
 }

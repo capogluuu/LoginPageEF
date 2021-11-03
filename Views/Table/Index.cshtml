@@ -1,7 +1,7 @@
 ﻿@using LoginPage.Models
 @model IEnumerable<Table>
 
-<a asp-action="Table" asp-route-id="null">Create</a>
+<a asp-action="Table" asp-route-username= null >Create</a>
 
 <table>
     <thead>
@@ -34,7 +34,7 @@
                 {
                     <a class="btn btn-danger" asp-action="Delete" asp-route-username="@item.username">Delete</a>
                 }
-                <a class="btn btn-secondary" asp-action="Update" asp-route-username="@item.username">Update</a>
+                <a class="btn btn-secondary" asp-action="Table" asp-route-username="@item.username">Update</a>
             </td>
         </tr>
     }
