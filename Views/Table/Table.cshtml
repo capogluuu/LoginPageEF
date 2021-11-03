@@ -1,39 +1,33 @@
 ﻿@using LoginPage.Models
 @model Table
-@{
-    ViewData["Title"] = "Register";
-}
-<h1>@ViewData["Title"]</h1>
 
-<h1>yapılacaklar statu datasını viewbag ile geçirmenin bir yolunu bul</h1>
 
-<h1>database griiş çıkılarını kontrol edebil</h1>
-<h1>kopyalanan dosyaları düzelt</h1>
+
 
 <form method="POST" asp-action="Create" autocomplete="off">
     <div class="form-group">
-        <input type="text" asp-for="name" class="form-control">
+        <input type="text" asp-for="name" placeholder="Name" class="form-control">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="surname" class="form-control">
+        <input type="text" asp-for="surname" placeholder="Surname" class="form-control">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="gsm" class="form-control">
+        <input type="text" asp-for="gsm" placeholder="Gsm" class="form-control">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="adress" class="form-control">
+        <input type="text" asp-for="adress" placeholder="Adress" class="form-control">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="username" class="form-control">
+        <input type="text" asp-for="username" placeholder="*Username" class="form-control">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="password" class="form-control">
+        <input type="text" asp-for="password" placeholder="Password" class="form-control">
     </div>
     <div class="form-group">
-        <input type="text" asp-for="status" class="form-control">
+        <input type="text" asp-for="status" placeholder="Status" class="form-control">
     </div>
     <div class="form-group">
-        @if (Model.name == null)
+        @if (Model.username == null)
         {
             <button type="submit" class="btn btn-primary">Create</button>
         }

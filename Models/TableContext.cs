@@ -5,6 +5,10 @@ namespace LoginPage.Models
 {
     public class TableContext:DbContext
     {
+        public TableContext()
+        {
+
+        }
         public TableContext(DbContextOptions<TableContext> options) : base(options)
         {
 

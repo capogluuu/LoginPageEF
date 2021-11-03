@@ -1,5 +1,6 @@
 ﻿@using LoginPage.Models
-@model IEnumerable<Login>
+@model IEnumerable<Table>
+
 <a asp-action="Table" asp-route-id="null">Create</a>
 
 <table>
@@ -17,7 +18,7 @@
     </thead>
     <tbody>
         @foreach (var item in @Model)
-        {
+    {
         <tr>
             <th>@item.name</th>
             <th>@item.surname</th>
@@ -28,14 +29,14 @@
             <th>@item.gsm</th>
             <td>
             <td>
-                @if ( item.status == "admin")
+
+                @if (item.status == "admin")
                 {
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-name="@item.name">Delete</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-username="@item.username">Delete</a>
                 }
-                <a class="btn btn-secondary" asp-action="Register" asp-route-name="@item.name">Update</a>
+                <a class="btn btn-secondary" asp-action="Update" asp-route-username="@item.username">Update</a>
             </td>
         </tr>
-        }
+    }
     </tbody>
-
 </table>

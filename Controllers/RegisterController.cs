@@ -57,6 +57,7 @@ namespace LoginPage.Controllers
                 //return Redirect("~/Views/Table/Index.cshtml",list);
 
                 return View("~/Views/Table/Router.cshtml");
+                //return View("~/Views/Table/Index.cshtml");
 
             }
 

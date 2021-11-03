@@ -11,10 +11,13 @@ namespace LoginPage.Controllers
     {
         public IConfiguration configuration;
 
-        public LoginController(IConfiguration iConfig)
+        private readonly TableContext _context;
+        public LoginController(IConfiguration iConfig, TableContext context)
         {
             configuration = iConfig;
+            _context = context;
         }
+
 
         [HttpGet]
         public IActionResult Index()
@@ -33,7 +36,7 @@ namespace LoginPage.Controllers
             var cs = "Host=localhost;Port=5432;User Id=postgres;Password=test;Database=EfLoginPage;";
             using var con = new NpgsqlConnection(cs);
             con.Open();
-            string query = "select COUNT(*) from public.\"Logins\" " + $" WHERE username='{username}' and password='{password}'";
+            string query = "select COUNT(*) from public.\"Tables\" " + $" WHERE username='{username}' and password='{password}'";
 
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
@@ -41,33 +44,46 @@ namespace LoginPage.Controllers
 
             if ((Int64)cmd.ExecuteScalar() > 0)
             {
-                query = $"SELECT * FROM public.\"Logins\"  Where username='{username}'";
+                query = $"SELECT * FROM public.\"Tables\"  Where username='{username}'";
 
                 cmd.Connection = con;
                 cmd.CommandText = query;
 
                 var reader = cmd.ExecuteReader();
                 List<Login> result = new List<Login>();
-                while (reader.Read())
+                Table table;
+                if (username != null && password != null)
                 {
-                    var d = new Login();
-                    d.name = (string)reader[0]; // Probably needs fixing
-                    d.surname = (string)reader[1]; // Probably needs fixing
-                    d.gsm = (string)reader[2]; // Probably needs fixing
-                    d.adress = (string)reader[3]; // Probably needs fixing
-                    d.username = (string)reader[4]; // Probably needs fixing
-                    d.password = (string)reader[5]; // Probably needs fixing
-                    d.status = (string)reader[6]; // Probably needs fixing
-                    result.Add(d);
+                    table = _context.Tables.Find(username);
+                    if(table.password == password)
+                    {
+                        return View("~/Views/Table/Router.cshtml");
+                    }
+                }
+                else
+                {
+                    return View();
                 }
 
-                reader.Close();
-                return View("~/Views/Table/Index.cshtml", result[0]);
             }
-            else
+            /*
+            while (reader.Read())
             {
-                return View("~/Views/Shared/Error.cshtml");
+                var d = new Login();
+                d.name = (string)reader[0]; // Probably needs fixing
+                d.surname = (string)reader[1]; // Probably needs fixing
+                d.gsm = (string)reader[2]; // Probably needs fixing
+                d.adress = (string)reader[3]; // Probably needs fixing
+                d.username = (string)reader[4]; // Probably needs fixing
+                d.password = (string)reader[5]; // Probably needs fixing
+                d.status = (string)reader[6]; // Probably needs fixing
+                result.Add(d);
             }
+            */
+            //reader.Close();
+             
+               return View("~/Views/Shared/Error.cshtml");
+
             
         }
     }
