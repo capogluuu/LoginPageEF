@@ -68,7 +68,7 @@ namespace LoginPage.Migrations
                     b.Property<string>("username")
                         .HasColumnType("text");
 
-                    b.HasKey("password");
+                    b.HasKey("username");
 
                     b.ToTable("Tables");
                 });

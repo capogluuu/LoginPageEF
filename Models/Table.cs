@@ -27,13 +27,12 @@ namespace LoginPage.Models
             Status = _status;
         }
 
-
+        [Key]
+        public string username { get { return Username; } set { Username = value; } }
         public string name { get { return Name; } set { Name = value; } }
         public string surname { get { return Surname; } set { Surname = value; } }
         public string gsm { get { return Gsm; } set { Gsm = value; } }
         public string adress { get { return Adress; } set { Adress = value; } }
-        [Key]
-        public string username { get { return Username; } set { Username = value; } }
         public string password { get { return Password; } set { Password = value; } }
         public string status { get { return Status; } set { Status = value; } }
 
