@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace LoginPage.Controllers
 {
@@ -18,7 +20,7 @@ namespace LoginPage.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string name, string surname, string gsm, string address, string username,
+        public async Task<IActionResult> IndexAsync(string name, string surname, string gsm, string address, string username,
             string password, string re_password, string status)
         {
             //bool dublicated = false;
@@ -26,44 +28,38 @@ namespace LoginPage.Controllers
             username = username.Trim(charsToTrim);
             if (password == re_password)
             {
-                // to do -> check dublicate situation
-                // to do -> give an alert for duplicate cases
 
-                var cs = "Host=localhost;Port=5432;User Id=postgres;Password=test;Database=EfLoginPage;";
-                using var con = new NpgsqlConnection(cs);
-                con.Open();
+                int userCheck = 0;
 
-                string query = "select COUNT(*) from public.\"Logins\"" + $" WHERE username='{username}'";
-
-                using var cmd = new NpgsqlCommand();
-                cmd.Connection = con;
-                cmd.CommandText = query;
+                using (var table = new TableContext())
+                {
+                    userCheck = table.Tables
+                        .Where(x => x.username == username)
+                        .Count();
+                }
 
                 ViewBag.Message = "true";
-                if ((Int64)cmd.ExecuteScalar() > 0)
+                if ( userCheck > 0 )
                 {
                     ViewBag.Message = "false";
                     return View("~/Views/Register/Index.cshtml");
                 }
 
-                cmd.CommandText = $"INSERT INTO public.\"Logins\" (username, name, surname, gsm, adress,  password, status)" +
-                    $" VALUES('{username}','{name}','{surname}','{gsm}','{address}','{password}','{status}')";
-                //cmd.ExecuteNonQuery();
+                Table CreateUser = new Table(name, surname, gsm, address, username,
+            password, status);
 
+                if (CreateUser.name != null)
+                {
+                    await _context.AddAsync(CreateUser);
+                }
+                await _context.SaveChangesAsync();
 
-                //var list = _context.Logins.ToList();
-                //return Redirect("~/Views/Table/Index.cshtml",list);
-
-                return View("~/Views/Table/Router.cshtml");
-                //return View("~/Views/Table/Index.cshtml");
-
+                return RedirectToAction("Index", "Table");
             }
 
             else
             {
                 return View("~/Views/Register/Index.cshtml");
-                //return View("~/Views/Table/Index.cshtml");
-
             }
         }
     }

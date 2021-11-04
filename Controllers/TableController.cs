@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace LoginPage.Controllers
 {
+    //redirectaction
     public class TableController : Controller
     {
         private readonly TableContext _context;
@@ -16,6 +17,19 @@ namespace LoginPage.Controllers
         {
             var list = _context.Tables.ToList();
             return View(list);
+        }
+        public IActionResult Table(string username)
+        {
+            Table table;
+            if (username == null)
+            {
+                table = new Table();
+            }
+            else
+            {
+                table = _context.Tables.Find(username);
+            }
+            return View(table);
         }
         public async Task<IActionResult> Create(Table table)
         {
@@ -39,19 +53,7 @@ namespace LoginPage.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Table(string username)
-        {
-            Table table;
-            if(username == null)
-            {
-                table = new Table();
-            }
-            else
-            {
-                table = _context.Tables.Find(username);
-            }
-            return View(table);
-        }
+
         public IActionResult Update(Table table)
         {
             using (var newTable = new TableContext())

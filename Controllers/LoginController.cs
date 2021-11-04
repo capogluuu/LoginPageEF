@@ -27,7 +27,7 @@ namespace LoginPage.Controllers
         {
 
             char[] charsToTrim = { ' ' };
-
+            username = username.Trim(charsToTrim);
             Table table;
             if (username != null && password != null)
             {
