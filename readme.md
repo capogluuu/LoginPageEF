@@ -1,3 +1,5 @@
+Create a database from postgresql named "EfLoginPage". 
+And after checking the appsettings.json, you can run the following codes
 Clone Repository
 ```
 https://github.com/capogluuu/LoginPageEF.git
