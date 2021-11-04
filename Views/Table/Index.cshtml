@@ -2,10 +2,9 @@
 @model IEnumerable<Table>
 
 <a asp-action="Table" asp-route-username= null >Create</a>
-
+<h2>@ViewBag.Session</h2>
 <table>
     <thead>
-
         <tr>
             <th scope="col">Name</th>
             <th scope="col">Surname</th>
@@ -13,7 +12,7 @@
             <th scope="col">Username</th>
             <th scope="col">Password</th>
             <th scope="col">Address</th>
-            <th scope="col">Gsm</th>he 
+            <th scope="col">Gsm</th> 
         </tr>
     </thead>
     <tbody>
@@ -29,8 +28,11 @@
             <th>@item.gsm</th>
             <td>
             <td>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-username="@item.username">Delete</a>            
-                <a class="btn btn-secondary" asp-action="Table" asp-route-username="@item.username">Update</a>
+                @if (@ViewBag.Session == "admin")
+                {
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-username="@item.username">Delete</a>
+                    <a class="btn btn-secondary" asp-action="Table" asp-route-username="@item.username">Update</a>
+                }
             </td>
         </tr>
     }

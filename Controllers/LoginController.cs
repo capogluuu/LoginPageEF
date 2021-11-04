@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LoginPage.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
 
 namespace LoginPage.Controllers
 {
@@ -29,12 +30,15 @@ namespace LoginPage.Controllers
             char[] charsToTrim = { ' ' };
             username = username.Trim(charsToTrim);
             Table table;
+            HttpContext.Session.SetString("Login", "false");
             if (username != null && password != null)
             {
                 table = _context.Tables.Find(username);
                 if (table.password == password)
                 {
-                    return View("~/Views/Table/Router.cshtml");
+                    HttpContext.Session.SetString("Login", "true");
+                    HttpContext.Session.SetString("Status", table.status);
+                    return RedirectToAction("Index", "Table");
                 }
             }
             else

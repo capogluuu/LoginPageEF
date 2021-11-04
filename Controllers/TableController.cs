@@ -2,21 +2,37 @@
 using LoginPage.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace LoginPage.Controllers
 {
-    //redirectaction
     public class TableController : Controller
     {
         private readonly TableContext _context;
+
+        public string getString(string KEY)
+        {
+            return HttpContext.Session.GetString(KEY);
+        }
         public TableController(TableContext context)
         {
             _context = context;
         }
         public IActionResult Index()
         {
-            var list = _context.Tables.ToList();
-            return View(list);
+            string logSituation = getString("Login");
+
+            if(logSituation == "true")
+            {
+                ViewBag.Session = getString("Status");
+                var list = _context.Tables.ToList();
+                return View(list);
+            }
+            else
+            {
+                return View("~/Views/Shared/Error.cshtml");
+            }
+            
         }
         public IActionResult Table(string username)
         {

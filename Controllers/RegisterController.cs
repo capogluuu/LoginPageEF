@@ -4,6 +4,7 @@ using Npgsql;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace LoginPage.Controllers
 {
@@ -48,12 +49,16 @@ namespace LoginPage.Controllers
                 Table CreateUser = new Table(name, surname, gsm, address, username,
             password, status);
 
+                HttpContext.Session.SetString("Status", CreateUser.status);
+                HttpContext.Session.SetString("Login", "true");
+
                 if (CreateUser.name != null)
                 {
                     await _context.AddAsync(CreateUser);
                 }
                 await _context.SaveChangesAsync();
 
+                ViewBag.Status = CreateUser.status;
                 return RedirectToAction("Index", "Table");
             }
 
