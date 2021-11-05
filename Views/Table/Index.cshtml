@@ -1,6 +1,8 @@
 ﻿@using LoginPage.Models
 @model IEnumerable<Table>
-
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
 <a asp-action="Table" asp-route-username= null >Create</a>
 <table>
     <thead>
